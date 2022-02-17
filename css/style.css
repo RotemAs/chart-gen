@@ -1,0 +1,116 @@
+body {
+    background-color: floralwhite;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    color: aliceblue;
+    background-color: #2962ff;
+}
+header > h2 {
+    text-align: center;
+    margin-left: 5%;
+}
+
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 5px;
+}
+
+.gallery-container > div {
+    width: 40%;
+    box-shadow: 2px 2px 2px #555;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.gallery-container > div:hover {
+    box-shadow: 4px 4px 4px #555;
+}
+
+.gallery-container > div > img {
+    width: 90%;
+    max-height: 80%;
+}
+.gallery-container > div > .chart-title {
+    font-size: 1.5em;
+    max-height: 20%;
+}
+
+.my-gift-btn {
+    margin-right: 5%;
+    padding: 6px;
+    /* border-radius: 25%; */
+    background-color: #2962ff;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+    color: aliceblue;
+}
+
+.creat-charts-gallery > p {
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    margin: 5%;
+}
+
+.editor-container {
+    display: none;
+    justify-content: center;
+    margin-top: 50px;
+    margin-inline-end: 10%;
+    margin-inline-start: 10%;
+}
+/* display: flex; */
+
+.charts-area {
+    position: relative;
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: none;
+    transition: none;
+    background-color: #fafafa;
+}
+
+.data-area {
+    background-color: aquamarine;
+    text-align: center;
+}
+.my-canvas {
+}
+
+.theam-select {
+}
+
+.term {
+    margin: 10px;
+    padding: 10px;
+    background-color: aqua;
+    display: flex;
+}
+.canvas-controls {
+    display: flex;
+    flex-direction: row;
+    /* margin-block-start: 30px; */
+    justify-content: space-around;
+    background-color: azure;
+}
+.canvas-controls > div {
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+.canvas-controls > button {
+    border-radius: 100%;
+    font-size: 2rem;
+}
