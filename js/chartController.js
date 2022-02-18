@@ -1,11 +1,14 @@
 "use strict";
+
+var gChartsData = loadFromStorage(CHARTS_KEY) || [];
+
 function renderChartEditor() {
     renderEditor();
-    renderChart();
+    renderChart(100);
 }
 
-function renderChart() {
-    renderTerms();
+function renderChart(animationHeightPercent) {
+    renderTerms(animationHeightPercent);
 }
 
 function renderEditor() {
@@ -13,7 +16,7 @@ function renderEditor() {
     var strHtml = `<input id="canvas-name" class="insert-text"    type="text"   placeholder="${gChart.title}"  />
                 <div class="canvas-controls">
                     <div>
-                    <button name:"play">▶️</button>
+                    <button name="play" onclick="onPlayClicked();" >▶️</button>
                     <label for="play">play</label>
                     </div>
                     <div>
@@ -21,8 +24,9 @@ function renderEditor() {
                     <button onclick="onUpdateValueType('number')" >123</button>
                     </div>
                     <div>
-                    <a class"save-to-computer"  href="#" onclick="downloadCanvas(this)" download="myphoto">🖬*</a>
-                    <button>🖬</button>
+                    <a class"save-to-computer" name:"save-to-computer"  href="#" onclick="downloadCanvas(this)" download="myphoto">🖬*</a>
+                    
+                    <button onclick="onSaveToGal()">🖬🖬</button>
                     </div>
                 </div>
                 <div class="params area">
@@ -50,6 +54,11 @@ function renderEditor() {
     // setChartTermsEventListener();
 }
 
+function onSaveToGal() {
+    gChartsData.push(gChart);
+    saveToStorage(CHARTS_KEY, gChartsData);
+}
+
 function setInputValue(type, id) {
     let elem;
     clearCanvas();
@@ -74,9 +83,9 @@ function setChartNameEventListener() {
     let nameInputElem = document.getElementById("canvas-name");
     nameInputElem.addEventListener("input", function () {
         gChart.title = nameInputElem.value;
-        // drawChartName();
-        clearCanvas();
-        renderTerms();
+        drawChartName();
+        // clearCanvas();
+        // renderTerms();
     });
 }
 
@@ -89,6 +98,7 @@ function removeChartName() {
 }
 
 function drawChartName() {
+    deleteTitleDrawing();
     if (!gChart.title) {
         return;
     }
@@ -96,7 +106,7 @@ function drawChartName() {
     // gCtx.save();
     gCtx.font = `${gChart.style.fontSize} ${gChart.style.font}`;
     gCtx.textAlign = "center";
-    gCtx.fillText(gChart.title, 50, 50);
+    gCtx.fillText(gChart.title, 250, 50, 300);
 }
 
 function saveToDownCanvas() {
@@ -113,8 +123,10 @@ function saveToGallery() {
 
 // }
 
-function renderTerms() {
+function renderTerms(animationHeightPercent) {
     // console.log("type", type);
+    let termMaxHeight = (gChart.termMaxHeight * animationHeightPercent) / 100;
+
     switch (gChart.theme) {
         case "bars":
             drawAxisSystem();
@@ -123,10 +135,9 @@ function renderTerms() {
                     let xStartCalc = gChart.chartWidth / gChart.maxTermsInChart;
                     term.x = 10 + idx * xStartCalc;
                     term.y =
-                        gCanvas.height -
-                        (gChart.termMaxHeight * term.value) / 100;
+                        gCanvas.height - (termMaxHeight * term.value) / 100;
 
-                    let rectSize = (gChart.termMaxHeight * term.value) / 100;
+                    let rectSize = (termMaxHeight * term.value) / 100;
                     let aixNursemaidsY =
                         gChart.axisesStart.y - gChart.chartHeight;
                     console.log(rectSize);
@@ -149,7 +160,7 @@ function renderTerms() {
                     term.x = 10 + idx * xStartCalc;
                     term.y = term.value;
 
-                    let rectSize = gChart.termMaxHeight - term.value;
+                    let rectSize = term.value;
                     let aixNursemaidsY =
                         gChart.axisesStart.y - gChart.chartHeight;
                     gCtx.fillStyle = term.color;
@@ -175,7 +186,9 @@ function renderTerms() {
     }
 }
 
-function renderCircals() {
+function renderCircals(animationMaxHeight) {
+    let termMaxHeight = gChart.termMaxHeight * animationMaxHeight;
+
     gChart.terms.forEach((term, idx) => {
         let xStartCalc = gChart.chartWidth / gChart.maxTermsInChart;
         console.log(xStartCalc);
@@ -183,7 +196,7 @@ function renderCircals() {
         term.y =
             gChart.valueType == "number"
                 ? gCanvas.height - term.value
-                : gCanvas.height - (gChart.termMaxHeight * term.value) / 100;
+                : gCanvas.height - (termMaxHeight * term.value) / 100;
 
         let aixNursemaidsY = gChart.axisesStart.y - gChart.chartHeight;
         console.log("aixNursemaidsY", aixNursemaidsY);
@@ -213,9 +226,11 @@ function saveCanvas() {
 }
 
 function resizeCanvas() {
-    var elContainer = document.querySelector(".canvas-container");
+    var elContainer = document.querySelector(".canvas-erea");
     gCanvas.width = elContainer.offsetWidth;
-    gCanvas.height = elContainer.offsetHeight;
+    // gCanvas.height = elContainer.offsetHeight;
+    console.log("elContainer", elContainer.offsetWidth);
+    renderChartEditor();
 }
 
 function downloadCanvas(elLink) {
@@ -244,6 +259,7 @@ function onUpdateValueType(type) {
     gValueType = type;
     gChart.valueType = type;
     console.log(type);
-    renderChart();
+    clearCanvas();
+    renderChart(100);
     // createChart(crrCharType.name);
 }

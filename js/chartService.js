@@ -36,7 +36,7 @@ function createChart(chartType) {
 
     crrCharType = SHAPES.find((shape) => shape.name === chartType);
 
-    var chart = {
+    gChart = {
         theme: crrCharType.name,
         title: crrCharType.namePlaceHolder,
         style: {
@@ -49,6 +49,8 @@ function createChart(chartType) {
         termMaxHeight: canvasHeight - 130,
         maxTermsInChart: 4,
         axisesStart: { x: 50, y: canvasHeight - 50 },
+        // axisesStart: { x: 50, y: canvasHeight - 50 - gChart.chartHeight },
+
         valueType: gValueType,
         terms: [
             {
@@ -59,8 +61,13 @@ function createChart(chartType) {
             { label: "Muk", value: 35, color: "green" },
         ],
     };
+}
 
-    gChart = chart;
+function onUpdateValueType(type) {
+    gValueType = type;
+    console.log(type);
+    renderChart();
+    // createChart(crrCharType.name);
 }
 
 function addTerm() {}

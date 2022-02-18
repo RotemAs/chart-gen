@@ -19,6 +19,9 @@ header > h2 {
     flex-wrap: wrap;
     justify-content: flex-start;
     margin: 5px;
+    /* border-style: solid; */
+    background-color: rgb(156, 204, 245);
+    grid-area: new-gal;
 }
 
 .gallery-container > div {
@@ -86,11 +89,6 @@ header > h2 {
     background-color: aquamarine;
     text-align: center;
 }
-.my-canvas {
-}
-
-.theam-select {
-}
 
 .term {
     margin: 10px;
@@ -105,12 +103,53 @@ header > h2 {
     justify-content: space-around;
     background-color: azure;
 }
-.canvas-controls > div {
-    /* display: flex; */
-    /* flex-direction: column; */
-}
 
 .canvas-controls > button {
     border-radius: 100%;
     font-size: 2rem;
+}
+.canvas-erea {
+    padding: 10px;
+}
+
+.general-page {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "new-gal   saved-gal";
+    gap: 10px;
+    text-align: center;
+}
+
+.saved-chart-title {
+    font-size: 1.5em;
+    max-height: 20%;
+}
+
+.saved-charts-gallery {
+    background-color: rgb(144, 143, 143);
+    display: flex;
+    flex-wrap: wrap;
+    /* border-color: black; */
+    border-style: solid;
+    grid-area: saved-gal;
+}
+.saved-charts-gallery > img {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 5px;
+    border-style: solid;
+}
+
+.saved-charts-gallery > div {
+    width: 40%;
+    box-shadow: 2px 2px 2px #555;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.saved-charts-gallery > div:hover {
+    box-shadow: 4px 4px 4px #555;
 }

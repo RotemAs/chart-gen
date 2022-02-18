@@ -4,7 +4,8 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="./css/responcive.css" />
         <title>Chart Generator v0.1</title>
     </head>
     <body onload="init()">
@@ -14,30 +15,34 @@
                 my gifs
             </button>
         </header>
-        <div class="creat-charts-gallery">
-            <p>create new chart</p>
-            <section class="gallery-container"></section>
-        </div>
+        <section class="general-page">
+            <div class="creat-charts-gallery">
+                <p>create new chart</p>
+                <section class="gallery-container"></section>
+            </div>
 
-        <div class="saved-charts-gallery"></div>
+            <div class="saved-charts-gallery"></div>
+        </section>
 
         <section class="editor-container" style="display: flex">
-            <canvas
-                class="my-canvas"
-                id="canvas"
-                width="600"
-                height="650"
-                style="border: 2px solid #000000"
-            ></canvas>
+            <div class="canvas-erea">
+                <canvas
+                    class="my-canvas"
+                    id="canvas"
+                    width="600"
+                    height="700"
+                    style="border: 2px solid #000000"
+                ></canvas>
+            </div>
 
             <div class="data-area"></div>
         </section>
 
-        <script src="js/chartService.js"></script>
-        <script src="js/galleryService.js"></script>
-        <script src="js/storageController.js"></script>
-        <script src="js/galleryController.js"></script>
-        <script src="js/chartController.js"></script>
-        <script src="js/script.js"></script>
+        <script src="js/chartService.js?ver=1.1"></script>
+        <script src="js/galleryService.js?ver=1.1"></script>
+        <script src="js/storageController.js?ver=1.1"></script>
+        <script src="js/galleryController.js?ver=1.1"></script>
+        <script src="js/chartController.js?ver=1.1"></script>
+        <script src="js/script.js?ver=1.1"></script>
     </body>
 </html>
