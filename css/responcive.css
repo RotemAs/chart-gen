@@ -1,7 +1,89 @@
 /* mobile */
-@media only screen and (max-width: 480px) {
+@media (max-width: 480px) {
+    .canvas-erea {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+    .data-area {
+        width: 99vw;
+    }
+    .term {
+        margin: 10px;
+        padding: 10px;
+        background-color: aqua;
+        display: flex;
+        flex-direction: column;
+    }
+    .general-page {
+        display: flex;
+        flex-direction: column;
+    }
+    .gallery-container > div {
+        background-color: blue;
+        color: aliceblue;
+    }
+    .gallery-container > div > img {
+        display: none;
+    }
+    .gallery-container {
+        display: flex;
+        flex-direction: row-reverse;
+        align-content: flex-start;
+        margin: 0;
+    }
+
+    .creat-charts-gallery > p {
+        display: none;
+    }
+
+    .saved-charts-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin: 5px;
+        align-content: flex-start;
+        align-items: flex-start;
+    }
 }
 
 /* Tablet */
-@media only screen and (min-width: 481px) and (max-width: 1024px) {
+@media (min-width: 520px) and (max-width: 1024px) {
+    .general-page {
+        display: flex;
+        flex-direction: column;
+    }
+    .gallery-container > div > img {
+        display: flex;
+    }
+    .gallery-container {
+        display: flex;
+        flex-direction: row;
+    }
+    .general-page {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 4fr;
+        grid-template-areas:
+            "new-gal"
+            "saved-gal";
+        text-align: center;
+    }
+    .gallery-container > div {
+        background-color: blue;
+        color: aliceblue;
+        height: 20vh;
+    }
+    .creat-charts-gallery > p {
+        color: blanchedalmond;
+        margin: 0;
+        padding: 0;
+    }
+    .creat-charts-gallery {
+        background-color: rgb(82, 76, 69);
+    }
 }
+/* @media (min-with:1024px){
+
+} */
