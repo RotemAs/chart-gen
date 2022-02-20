@@ -1,8 +1,11 @@
 "use strict";
-console.log("test100");
+
 var testCounterB = 1;
 var testCounterBar = 1;
+
 const CHARTS_KEY = "cart-data";
+const MAX_TERMS = 4;
+
 var gValueType = "percent";
 var SHAPES = [
     {
@@ -46,21 +49,26 @@ function createChart(chartType) {
         termMaxHeight: canvasHeight - 130,
         maxTermsInChart: 4,
         axisesStart: { x: 50, y: canvasHeight - 50 },
-         valueType: gValueType,
+        valueType: gValueType,
         terms: [
             {
                 label: "New Term 1",
                 value: 50,
                 color: "pink",
+                descriptionValue: 50,
             },
-            { label: "New Term 2", value: 35, color: "green" },
+            {
+                label: "New Term 2",
+                value: 35,
+                color: "green",
+                descriptionValue: 35,
+            },
         ],
         keywords: ["test1", crrCharType.namePlaceHolder],
         created: new Date(),
+        termsCounter: 2,
     };
 }
-
-
 
 function saveStat() {
     gChartsData.push(gChart);
@@ -73,7 +81,7 @@ function saveToGallery() {
 }
 
 function saveCanvas() {
-    console.log("saveCanvas() is on  ");
+    // console.log("saveCanvas() is on  ");
     let dataURL = gCanvas.toDataURL();
 }
 function downloadCanvas(elLink) {

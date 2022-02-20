@@ -18,10 +18,9 @@ header > h2 {
 .gallery-container {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: flex-start; */
+
     margin: 5px;
-    /* border-style: solid; */
-    /* background-color: rgb(156, 204, 245); */
+
     grid-area: new-gal;
 
     flex-direction: column;
@@ -72,26 +71,6 @@ header > h2 {
     font-weight: bold;
     margin: 5%;
 }
-/* 
-.editor-container {
-    display: none;
-    /* justify-content: center; */
-/* margin-top: 50px;
-    margin-inline-end: 10%;
-    margin-inline-start: 10%;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: "editor-canvas     editor-control";
-    text-align: center;
-}
-.data-area {
-    grid-area: "editor-control";
-}
-.my-canvas {
-    grid-area: "editor-canvas";
-} */
-/* display: flex; */
 
 .data-area {
     width: 50%;
@@ -229,4 +208,7 @@ header > h2 {
     display: flex;
     justify-content: center;
     margin-top: 10px;
+}
+.active {
+    background-color: #009688;
 }

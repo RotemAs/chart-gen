@@ -21,12 +21,15 @@ function renderGallery() {
 function renderMyGifs(searchWord = "", sortType = "sort") {
     let gifsData;
     if (!searchWord) gifsData = gChartsData;
-    else if (sortType === "sort") gifsData = getSortBySearchGifSort(searchWord);
-    else gifsData = getSortBySearchGif(searchWord);
+    else if (sortType === "sort") {
+        gifsData = setSort(gifsData, "name");
+    } else gifsData = getSortBySearchGif(searchWord);
+
     var strHtml = gifsData.map((savedChart, index) => {
+        let imgLink = savedChart.theme === "baloons" ? BALOON_IMG : BAR_IMG;
         return `
        <div onc>
-        <img class="saved-gallery-img saved-gallery-img-${savedChart.theme}" src="./assets/gallery/circals.svg" onclick="onImgClick('${savedChart.theme}','${index}','mygifs') " >
+        <img class="saved-gallery-img saved-gallery-img-${savedChart.theme}" src="${imgLink}" onclick="onImgClick('${savedChart.theme}','${index}','mygifs') " >
         <div class="saved-chart-title saved-chart-title-${savedChart.theme}">${savedChart.title}</div>
         </div>
         `;
@@ -54,10 +57,10 @@ function onImgClick(shapeName, index, galleryType) {
         loadChart(index);
         renderChartEditor();
     } else {
-        console.log("onImgClick shapeName:", shapeName);
+        // console.log("onImgClick shapeName:", shapeName);
         switch (shapeName) {
             case "bars":
-                console.log("switch bars");
+                // console.log("switch bars");
                 toggleEditor(true);
                 toggleGallery(false);
                 createChart(shapeName);
@@ -83,13 +86,24 @@ function onTitleClick() {
     toggleGallery(true);
     clearCanvas();
     renderMyGifs();
+    // resizeCanvas();
 }
+
+var isCanvasAvtive = false;
 function toggleEditor(isShow) {
     const elEditor = document.querySelector(".editor-container");
     elEditor.style.display = isShow ? "flex" : "none";
+    isShow === true ? (isCanvasAvtive = true) : (isCanvasAvtive = false);
+    console.log("isCanvasAvtive", isCanvasAvtive);
 }
 
 function toggleGallery(isShow) {
     const elGallery = document.querySelector(".general-page");
     elGallery.style.display = isShow ? "grid" : "none";
+}
+
+function onSetSorting(SortBy) {
+    console.log("SortBy", SortBy);
+
+    setSort(gFilteredBooks, SortBy);
 }

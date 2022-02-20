@@ -1,12 +1,11 @@
 "use strict";
-
+var testCounterBar = 0;
+var testCounterB = 0;
 function init() {
-    // renderHeder();
     doTrans();
     toggleEditor(false);
     renderGallery();
     renderMyGifs();
-    // resizeCanvas();
 }
 
 var gBarWidth = 40;
@@ -23,15 +22,7 @@ function drawBars() {
     renderChartBars();
 }
 
-// function reset() {
-//     gCtx.restore();
-// }
-
 function deleteTermsDrawing() {
-    //    gCtx.fillrect
-    // gCtx.fillColor = "white";
-    // gCtx.fillStyle = "#ffffff";
-    // gCtx.fillRect(
     gCtx.clearRect(
         gChart.axisesStart.x,
         gChart.axisesStart.y - gChart.chartHeight,
@@ -56,12 +47,13 @@ function deleteTitleDrawing() {
 }
 
 function onPlayClicked() {
-    deleteTermsDrawing();
+    // clearCanvas();
     let currentPercent = 1;
     const id = setInterval(() => {
         currentPercent++;
-        deleteTermsDrawing();
-        renderChart(currentPercent);
+        // deleteTermsDrawing();
+        clearCanvas();
+        renderChartEditor(currentPercent);
         if (currentPercent >= 100) {
             clearInterval(id);
         }
@@ -69,19 +61,63 @@ function onPlayClicked() {
 }
 
 function numsCalk() {
+    if (gChart.valueType == "percent") return;
+    console.log("Test");
     let termCounter = 0;
     let termTotal = 0; //2000
     gChart.terms.forEach((term) => {
         termCounter++;
-        console.log("termCounter", termCounter);
+        // console.log("termCounter", termCounter);
         termTotal += term.value;
-        console.log("term.value", term.value, "termTotal", termTotal);
+        // console.log("term.value", term.value, "termTotal", termTotal);
     });
     let unit = 100 / termTotal;
     // 500 500 600 400
     gChart.terms.forEach((term) => {
-        term.value = term.value * unit;
+        term.value = term.descriptionValue * unit;
+        console.log(
+            "term.value",
+            term.value,
+            "term.descriptionValue",
+            term.descriptionValue,
+            "\n termTotal",
+            termTotal,
+            "unit",
+            unit
+        );
     });
 
     // return unit;
+}
+
+// servise
+var gSortBy = "name";
+
+function setSort(list, sortBy = "name") {
+    gifsSortedData = gChartsData;
+    gSortBy = sortBy;
+    console.log("setSort");
+    switch (gSortBy) {
+        case "name":
+            // key = sortBy
+            var comparison = 0;
+            list.sort(function (chart1, chart2) {
+                if (chart1.name > chart2.name) {
+                    comparison = 1;
+                } else if (chart1.name < chart2.name) {
+                    comparison = -1;
+                }
+
+                return comparison;
+            });
+            break;
+        case "date":
+            console.log("date");
+            break;
+    }
+}
+
+function OnMySavedCharts() {
+    // let el = document.querySelector(".creat-charts-gallery");
+    // el.style.display = "none";
 }

@@ -2,17 +2,24 @@
 
 var gChartsData = loadFromStorage(CHARTS_KEY) || [];
 
-function renderChartEditor() {
+function renderChartEditor(animationHeightPercent = 100) {
     renderEditor();
-    renderChart(100);
+    // clearCanvas();
+    renderChart(animationHeightPercent);
 }
 
-function renderChart(animationHeightPercent) {
+function renderChart(animationHeightPercent = 100) {
     renderTerms(animationHeightPercent);
 }
 
 function renderEditor() {
-    console.log("gChart is: ", gChart);
+    const imgDataUrll = gCanvas.toDataURL("jpg");
+    const encodedUploadedImgUrl = encodeURIComponent(imgDataUrll);
+
+    let valTypePercent =
+        gChart.valueType === "percent" ? "active" : "not-active";
+    let valTypeNumber = gChart.valueType === "number" ? "active" : "not-active";
+
     var strHtml = `<input id="canvas-name" class="insert-text"    type="text"   placeholder="${gChart.title}"  />
                 <div class="canvas-controls">
                     <div>
@@ -20,15 +27,19 @@ function renderEditor() {
                     <label for="play" data-trans="editorPlay" >play</label>
                     </div>
                     <div>
-                    <button onclick="onUpdateValueType('percent')" >%</button>
-                    <button onclick="onUpdateValueType('number')" >123</button>
+                    <button onclick="onUpdateValueType('percent')" class="${valTypePercent}" >%</button>
+                    <button onclick="onUpdateValueType('number')" class="${valTypeNumber}" >123</button>
                     </div>
                     <div>
                     <a class"save-to-computer" name:"save-to-computer"  href="#" onclick="onDawnCanvas(this)" download="myphoto">🖬*</a>
                     
                     <button onclick="onSaveToGal()">🖬🖬</button>
-                    <button onclick="ondrawbackimg()">back img </button>
-                    <button onclick="fBupload()" class"fbDown">FB upload</button>
+                    <div>
+                    <button onclick="onDrawBackImg()">back img </button>
+                    <button onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${imgDataUrll}&t=${imgDataUrll}'); return false;" class"fbDown" >FB upload</button>
+                    
+                   
+                    </div>
                     </div>
                 </div>
                 <div class="params area">
@@ -56,17 +67,8 @@ function renderEditor() {
     doTrans();
 }
 
-function fBupload() {
-    document.querySelector(".fbDown").innerHTML = `
-        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" 
-		title="Share on Facebook" target="_blank" 
-		onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}');
-		return false;">
-           Share   
-        </a>`;
-}
 
-function ondrawbackimg() {
+function onDrawBackImg() {
     let backgroundImg = new Image();
     backgroundImg.src = "assets/img/17.jpg";
     backgroundImg.onload = function () {
@@ -87,6 +89,7 @@ function setInputValue(type, id) {
         case "value":
             elem = document.getElementById(`gchart-input-value-${id}`);
             gChart.terms[id].value = +elem.value;
+            gChart.terms[id].descriptionValue = +elem.value;
             break;
         case "color":
             elem = document.getElementById(`gchart-input-color-${id}`);
@@ -97,7 +100,7 @@ function setInputValue(type, id) {
             gChart.terms[id].label = elem.value;
             break;
     }
-    renderTerms(100);
+    renderTerms();
 }
 
 function setChartNameEventListener() {
@@ -131,98 +134,20 @@ function drawChartName() {
 //     crrCart = loadFromStorage(CHARTS_KEY)
 
 // }
-
+var termMaxHeight;
 function renderTerms(animationHeightPercent = 100) {
-    // console.log("type", type);
-    let termMaxHeight = (gChart.termMaxHeight * animationHeightPercent) / 100;
-
+    numsCalk();
+    termMaxHeight = (gChart.termMaxHeight * animationHeightPercent) / 100;
     switch (gChart.theme) {
         case "bars":
-            console.log("renderTerms gCtx=", gCtx);
             drawAxisSystem();
-
-            if (gChart.valueType === "percent") {
-                gChart.terms.forEach((term, idx) => {
-                    let xStartCalc = gChart.chartWidth / gChart.maxTermsInChart;
-                    term.x = 10 + idx * xStartCalc;
-                    term.y =
-                        gCanvas.height - (termMaxHeight * term.value) / 100;
-
-                    let rectSize = (termMaxHeight * term.value) / 100;
-                    let aixNursemaidsY =
-                        gChart.axisesStart.y - gChart.chartHeight;
-                    console.log(rectSize);
-                    gCtx.fillStyle = term.color;
-                    gCtx.fillRect(
-                        term.x + gChart.axisesStart.x,
-                        term.y - aixNursemaidsY,
-                        // 0,
-                        // gBarWidth,
-                        xStartCalc * 0.65,
-                        rectSize
-                    );
-                    // test
-                    // gCtx.fillStyle = "red";
-                    // gCtx.fillRect(
-                    //     term.x + gChart.axisesStart.x,
-                    //     term.y - aixNursemaidsY - 50,
-                    //     125 - 10,
-                    //     40
-                    // );
-                    //term name
-                    gCtx.font = `${gChart.style.fontSize * 0.8} ${
-                        gChart.style.font
-                    }`;
-                    gCtx.textAlign = "center";
-                    gCtx.fillText(
-                        term.label,
-                        term.x + gChart.axisesStart.x,
-                        term.y - aixNursemaidsY - 20,
-                        xStartCalc
-                    );
-
-                    // gCtx.stroke();
-                });
-            } else {
-                // numbers
-                gChart.terms.forEach((term, idx) => {
-                    let xStartCalc = gChart.chartWidth / gChart.maxTermsInChart;
-                    term.x = 10 + idx * xStartCalc;
-                    term.y = term.value;
-
-                    let rectSize = term.value;
-                    let aixNursemaidsY =
-                        gChart.axisesStart.y - gChart.chartHeight;
-                    gCtx.fillStyle = term.color;
-                    console.log("gCtx.fillStyle", gCtx.fillStyle);
-                    gCtx.fillRect(
-                        term.x + gChart.axisesStart.x,
-                        gCanvas.height - rectSize - aixNursemaidsY,
-                        xStartCalc * 0.65,
-                        rectSize
-                    );
-
-                    //term name
-                    gCtx.font = `${gChart.style.fontSize * 0.6} ${
-                        gChart.style.font
-                    }`;
-                    gCtx.textAlign = "center";
-                    gCtx.fillText(
-                        term.label,
-                        term.x + gChart.axisesStart.x + 10,
-                        gCanvas.height - rectSize - aixNursemaidsY - 10,
-                        xStartCalc
-                    );
-
-                    gCtx.stroke();
-                });
-            }
-
+            drawChartName();
+            renderBars();
             break;
         case "baloons":
-            console.log("switch baloons");
+            // console.log("switch baloons");
             // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-            console.log("case balloons renderTerms gCtx=", gCtx);
+            // console.log("case balloons renderTerms gCtx=", gCtx);
             drawAxisSystem();
             drawChartName();
             renderCircles();
@@ -230,21 +155,42 @@ function renderTerms(animationHeightPercent = 100) {
     }
 }
 
-function renderCircles(animationMaxHeight) {
-    numsCalk();
-    let termMaxHeight = gChart.termMaxHeight * animationMaxHeight;
-
+function renderBars() {
+    // numsCalk();
+    // termMaxHeight = (gChart.termMaxHeight * animationHeightPercent) / 100;
     gChart.terms.forEach((term, idx) => {
         let xStartCalc = gChart.chartWidth / gChart.maxTermsInChart;
-        console.log(xStartCalc);
-        term.x = 10 + idx * xStartCalc + term.value;
-        term.y =
-            gChart.valueType == "number"
-                ? gCanvas.height - term.value
-                : gCanvas.height - (gChart.termMaxHeight * term.value) / 100;
-
+        term.x = 10 + idx * xStartCalc;
+        term.y = gCanvas.height - (termMaxHeight * term.value) / 100;
+        let rectSize = (termMaxHeight * term.value) / 100;
         let aixNursemaidsY = gChart.axisesStart.y - gChart.chartHeight;
-        console.log("aixNursemaidsY", aixNursemaidsY);
+        gCtx.fillStyle = term.color;
+        gCtx.fillRect(
+            term.x + gChart.axisesStart.x,
+            term.y - aixNursemaidsY,
+            xStartCalc * 0.65,
+            rectSize
+        );
+
+        //term name
+        gCtx.font = `${gChart.style.fontSize * 0.8} ${gChart.style.font}`;
+        gCtx.textAlign = "center";
+        gCtx.fillText(
+            term.label,
+            term.x + gChart.axisesStart.x,
+            term.y - aixNursemaidsY - 20,
+            xStartCalc
+        );
+    });
+}
+
+function renderCircles(animationMaxHeight) {
+    // numsCalk();
+    gChart.terms.forEach((term, idx) => {
+        let xStartCalc = gChart.chartWidth / gChart.maxTermsInChart;
+        term.x = 10 + idx * xStartCalc + term.value;
+        term.y = gCanvas.height - (termMaxHeight * term.value) / 100;
+        let aixNursemaidsY = gChart.axisesStart.y - gChart.chartHeight;
 
         // drow circal
         gCtx.beginPath();
@@ -270,23 +216,30 @@ function renderCircles(animationMaxHeight) {
         gCtx.stroke();
         // inner Text
         gCtx.beginPath();
-        gCtx.fillRect(
+        gCtx.globalAlpha = 1;
+        gCtx.font = `${gChart.style.fontSize * 0.6} ${gChart.style.font}`;
+        gCtx.textAlign = "center";
+        gCtx.fillStyle = "floralwhite";
+        let textHolder = Math.floor(term.descriptionValue).toString();
+        gChart.valueType == "percent" ? (textHolder += "%") : "";
+        gCtx.fillText(
+            textHolder,
             term.x + gChart.axisesStart.x,
             term.y - aixNursemaidsY,
-            75,
-            50
+            100
         );
-        gCtx.fillStyle = "green";
 
-        //term name
-        // gCtx.font = `${gChart.style.fontSize * 0.6} ${gChart.style.font}`;
-        // gCtx.textAlign = "center";
-        // gCtx.fillText(
-        //     term.label,
-        //     term.x + gChart.axisesStart.x + 10,
-        //     gCanvas.height - rectSize - aixNursemaidsY - 10,
-        //     xStartCalc
-        // );
+        // term name
+
+        gCtx.font = `${gChart.style.fontSize * 0.6} ${gChart.style.font}`;
+        gCtx.textAlign = "center";
+        gCtx.fillStyle = "black";
+        gCtx.fillText(
+            term.label,
+            term.x + gChart.axisesStart.x,
+            gCanvas.height - 5,
+            100
+        );
     });
 }
 
@@ -295,6 +248,7 @@ function onDawnCanvas(elLink) {
 }
 
 function resizeCanvas() {
+    if (!isCanvasAvtive) return;
     let canvas = document.getElementById("canvas");
     canvas.width = window.innerWidth / 2;
     gChart.chartWidth = canvas.width - 100;
@@ -320,22 +274,31 @@ function clearCanvas() {
 function onUpdateValueType(type) {
     gValueType = type;
     gChart.valueType = type;
-    console.log(type);
+    // console.log(type);
     clearCanvas();
-    renderChart(100);
+    renderChartEditor(100);
+
     // createChart(crrCharType.name);
 }
 
 function onAddTerm() {
+    gChart.termsCounter++;
+    if (gChart.termsCounter > 4) return;
     let termNum = gChart.terms.length + 1;
     let label = "new Term " + termNum.toString();
-    let newTerm = { label: label, value: 0, color: "pink" };
+    let newTerm = {
+        label: label,
+        value: 0,
+        color: "pink",
+        descriptionValue: 0,
+    };
     gChart.terms.push(newTerm);
+
     renderChartEditor();
 }
 
-function onUpdateValueType(type) {
-    gValueType = type;
-    console.log(type);
-    renderChart();
-}
+// function onUpdateValueTypeXX(type) {
+//     gValueType = type;
+//     // console.log(type);
+//     renderChart();
+// }

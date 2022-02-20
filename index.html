@@ -6,31 +6,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./css/style.css" />
         <link rel="stylesheet" href="./css/responcive.css" />
-        <title>Chart Generator v0.1</title>
+        <title>Chart Generator v4.0</title>
     </head>
-    <body onload="init()" onresize="resizeCanvas()">
+  
+    <body onload="init()" onresize="resizeCanvas()" >
         <header>
             <h2 onclick="onTitleClick()" data-trans="mainTitle">
                 My Chart Maker
             </h2>
+            
+            
             <button
                 class="my-gift-btn"
                 data-trans="myGifBtn"
-                onclick="OnMySavedChrts()"
+                onclick="OnMySavedCharts()"
             ></button>
-            <select onchange="onSetLang(this.value)">
-                <option value="en">English</option>
-                <option value="he">עברית</option>
-                <option value="es">Spanish</option>
-            </select>
             <!-- <div class="share-container">share-container</div> -->
         </header>
         <section class="general-page">
+            
             <div class="creat-charts-gallery">
+                
+                <select onchange="onSetLang(this.value)">
+                    <option value="en">English</option>
+                    <option value="he">עברית</option>
+                    <option value="es">Spanish</option>
+                </select>
                 <p data-trans="msg0">create</p>
                 <section class="gallery-container"></section>
             </div>
 
+            
             <div class="saved-charts-container">
                 <heder class="saved-charts-heder">
                     <div class="wrapper">
@@ -40,7 +46,7 @@
                             placeholder="Search"
                             type="text"
                             class="search"
-                            oninput="renderSearch(this.value)"
+                            oninput="onSetSorting(this.value)"
                         />
                         <label for="sort" data-trans="sort">sort by:</label>
 
