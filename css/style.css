@@ -59,11 +59,10 @@ header > h2 {
     color: aliceblue;
 }
 .creat-charts-gallery {
-    background-color: rgb(223, 198, 166);
+    background-color: #fafafa;
 }
 
 .creat-charts-gallery > p {
-    
     font-size: 1.5em;
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
@@ -72,10 +71,15 @@ header > h2 {
     font-weight: bold;
     margin: 5%;
 }
-
-.data-area {
-    width: 50%;
+.creat-charts-gallery > header {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-content: space-around;
+    justify-content: space-evenly;
 }
+
+
 
 .charts-area {
     position: relative;
@@ -85,17 +89,20 @@ header > h2 {
     -webkit-transition: none;
     transition: none;
     background-color: #fafafa;
+    display: none;
 }
 
 .data-area {
-    background-color: aquamarine;
+    background-color: rgb(220, 229, 240);
     text-align: center;
+     width: 50%;
 }
+
 
 .term {
     margin: 10px;
     padding: 10px;
-    background-color: aqua;
+    background-color: rgb(196, 214, 236);
     display: flex;
 }
 .canvas-controls {
@@ -105,11 +112,20 @@ header > h2 {
     justify-content: space-around;
     background-color: azure;
 }
-
-.canvas-controls > button {
+.controls-play{
     border-radius: 100%;
-    font-size: 2rem;
+    background-color: #2962ff;
+    
 }
+.controls-percent {
+     border-radius: 100%;
+     background-color: #2962ff;
+}
+ .controls-number{
+     border-radius: 100%;
+     background-color: #2962ff;
+ }
+
 .canvas-erea {
     padding: 10px;
 }
@@ -155,7 +171,7 @@ header > h2 {
     box-shadow: 4px 4px 4px #555;
 }
 .saved-charts-container {
-    background-color: rgb(144, 143, 143);
+    background-color: #ece3e3;
     grid-area: saved-gal;
 }
 .saved-charts-heder {
@@ -164,7 +180,7 @@ header > h2 {
     align-items: center;
     height: 60px;
     color: aliceblue;
-    background-color: #0834ad;
+    background-color: #2962ff;
 }
 
 .wrapper {

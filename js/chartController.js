@@ -23,12 +23,12 @@ function renderEditor() {
     var strHtml = `<input id="canvas-name" class="insert-text"    type="text"   placeholder="${gChart.title}"  />
                 <div class="canvas-controls">
                     <div>
-                    <button name="play"   onclick="onPlayClicked();" >▶️</button>
+                    <button name="play"  class="controls-play"  onclick="onPlayClicked();" >▶️</button>
                     <label for="play" data-trans="editorPlay" >play</label>
                     </div>
                     <div>
-                    <button onclick="onUpdateValueType('percent')" class="${valTypePercent}" >%</button>
-                    <button onclick="onUpdateValueType('number')" class="${valTypeNumber}" >123</button>
+                    <button onclick="onUpdateValueType('percent')" class="controls-percent  ${valTypePercent}" >%</button>
+                    <button onclick="onUpdateValueType('number')" class="controls-number  ${valTypeNumber}" >123</button>
                     </div>
                     <div>
                     <a class"save-to-computer" name:"save-to-computer"  href="#" onclick="onDawnCanvas(this)" download="myphoto">🖬*</a>
@@ -55,11 +55,14 @@ function renderEditor() {
     }
     strHtml += `
     <button onclick="onAddTerm()" data-trans="editorAddPram"></button>
-    <div>
-    <button class="theam-select" data-trans="editorTheme" >theam select</button>
-    </div>
+    
     `;
 
+    // <div>
+    //     <button class="theam-select" data-trans="editorTheme">
+    //         theam select
+    //     </button>
+    // </div>;
     const elParams = document.querySelector(".data-area");
     elParams.innerHTML = strHtml;
 
@@ -144,9 +147,6 @@ function renderTerms(animationHeightPercent = 100) {
             renderBars();
             break;
         case "baloons":
-            // console.log("switch baloons");
-            // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-            // console.log("case balloons renderTerms gCtx=", gCtx);
             drawAxisSystem();
             drawChartName();
             renderCircles();
@@ -255,10 +255,12 @@ function resizeCanvas() {
     if (!isCanvasAvtive) return;
     let canvas = document.getElementById("canvas");
     let winSize = window.innerWidth;
-    console.log('winSize', winSize);
+    console.log("winSize", winSize);
+
     winSize < 1024
-        ? (canvas.width = window.innerWidth)
+        ? (canvas.width = window.innerWidth - 25)
         : (canvas.width = window.innerWidth / 2);
+
     gChart.chartWidth = canvas.width - 100;
     renderChartEditor();
 }

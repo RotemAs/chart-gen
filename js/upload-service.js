@@ -41,9 +41,3 @@ function saveToDownCanvas() {
     console.log("saveCanvas() is on  ");
     let dataURL = gCanvas.toDataURL();
 }
-
-// function downloadCanvas(elLink) {
-//     const data = gCanvas.toDataURL();
-//     elLink.href = data;
-//     elLink.download = `${gChart.title}`;
-// }

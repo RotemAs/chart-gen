@@ -8,35 +8,33 @@
         <link rel="stylesheet" href="./css/responcive.css" />
         <title>Chart Generator v4.0</title>
     </head>
-  
-    <body onload="init()" onresize="resizeCanvas()" >
+
+    <body onload="init()" onresize="resizeCanvas()">
         <header>
             <h2 onclick="onTitleClick()" data-trans="mainTitle">
                 My Chart Maker
             </h2>
-            
+
             <!-- <button
                 class="my-gift-btn"
                 data-trans="myGifBtn"
                 onclick="OnMySavedCharts()"
             ></button> -->
             <!-- <div class="share-container">share-container</div> -->
-            
         </header>
         <section class="general-page">
-            
             <div class="creat-charts-gallery">
-                
-                <select onchange="onSetLang(this.value)">
-                    <option value="en">English</option>
-                    <option value="he">עברית</option>
-                    <option value="es">Spanish</option>
-                </select>
-                <p data-trans="msg0">create</p>
+                <header>
+                    <select onchange="onSetLang(this.value)">
+                        <option value="en">English</option>
+                        <option value="he">עברית</option>
+                        <option value="es">Spanish</option>
+                    </select>
+                    <p data-trans="msg0">create</p>
+                </header>
                 <section class="gallery-container"></section>
             </div>
 
-            
             <div class="saved-charts-container">
                 <heder class="saved-charts-heder">
                     <div class="wrapper">
@@ -69,7 +67,6 @@
         </section>
 
         <div class="canvas-erea">
-            <div class="data-area"></div>
             <section class="editor-container" style="display: flex">
                 <canvas
                     class="my-canvas"
@@ -78,9 +75,10 @@
                     height="700"
                     style="border: 2px solid #000000"
                 ></canvas>
-            </div>
 
-        </section>
+                <div class="data-area"></div>
+            </section>
+        </div>
 
         <script src="js/chartService.js?"></script>
         <script src="js/i18n.service.js"></script>

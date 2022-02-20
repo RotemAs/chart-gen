@@ -83,6 +83,28 @@
     .creat-charts-gallery {
         background-color: rgb(82, 76, 69);
     }
-}
-@media (min-with: 1024px) {
+    .data-area {
+        width: 100vw;
+       
+
+    }
+    .editor-container {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .term {
+        margin: 10px;
+        padding: 10px;
+        background-color: aqua;
+        display: flex;
+        flex-direction: column;
+    }
+    .canvas-erea {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+          align-items: center;
+          align-content: center;
+    }
 }
