@@ -67,7 +67,6 @@ function renderEditor() {
     doTrans();
 }
 
-
 function onDrawBackImg() {
     let backgroundImg = new Image();
     backgroundImg.src = "assets/img/17.jpg";
@@ -247,10 +246,19 @@ function onDawnCanvas(elLink) {
     downloadCanvas(elLink);
 }
 
+function Test100() {
+    let winsize = window.innerWidth;
+    console.log("winsize", winsize);
+}
+
 function resizeCanvas() {
     if (!isCanvasAvtive) return;
     let canvas = document.getElementById("canvas");
-    canvas.width = window.innerWidth / 2;
+    let winSize = window.innerWidth;
+    console.log('winSize', winSize);
+    winSize < 1024
+        ? (canvas.width = window.innerWidth)
+        : (canvas.width = window.innerWidth / 2);
     gChart.chartWidth = canvas.width - 100;
     renderChartEditor();
 }
