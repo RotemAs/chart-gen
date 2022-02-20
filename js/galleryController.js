@@ -5,8 +5,8 @@ function renderGallery() {
 
     var strHtml = SHAPES.map((shape) => {
         return `
-        <div>
-        <img class="gallery-img ${shape.name}" src="${shape.imgUrl}" onclick="onImgClick('${shape.name}','0','new-shape')">
+        <div class="img-warp" onclick="onImgClick('${shape.name}','0','new-shape')">
+        <img class="gallery-img ${shape.name}" src="${shape.imgUrl}"  >
         <div class="chart-title chart-title-${shape.name}">${shape.msg}</div>
         </div>
         `;

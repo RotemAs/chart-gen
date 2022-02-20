@@ -6,6 +6,7 @@
         flex-wrap: nowrap;
         justify-content: flex-start;
     }
+
     .data-area {
         width: 99vw;
     }
@@ -16,9 +17,22 @@
         display: flex;
         flex-direction: column;
     }
+    .editor-container {
+        display: flex;
+        flex-direction: column-reverse;
+    }
     .general-page {
         display: flex;
+        flex-wrap: wrap;
         flex-direction: column;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 4fr;
+        grid-template-areas:
+            "new-gal"
+            "saved-gal";
+        text-align: center;
     }
     .gallery-container > div {
         background-color: blue;
@@ -29,7 +43,7 @@
     }
     .gallery-container {
         display: flex;
-        flex-direction: row-reverse;
+        flex-direction: row;
         align-content: flex-start;
         margin: 0;
     }
@@ -85,8 +99,6 @@
     }
     .data-area {
         width: 100vw;
-       
-
     }
     .editor-container {
         display: flex;
@@ -104,7 +116,7 @@
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: flex-start;
-          align-items: center;
-          align-content: center;
+        align-items: center;
+        align-content: center;
     }
 }

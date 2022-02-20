@@ -58,11 +58,7 @@ function renderEditor() {
     
     `;
 
-    // <div>
-    //     <button class="theam-select" data-trans="editorTheme">
-    //         theam select
-    //     </button>
-    // </div>;
+    
     const elParams = document.querySelector(".data-area");
     elParams.innerHTML = strHtml;
 
